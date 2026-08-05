@@ -2,7 +2,7 @@
 
 Official website for **Lastborn Creative**, a video editing and content creation studio serving YouTubers, churches, businesses, and brands.
 
-**Live site:** [_add your GitHub Pages link here once it's live_](https://lastborntalks.github.io/Lastborn-Creative/)
+**Live site:** [(https://lastborntalks.github.io/Lastborn-Creative/)](https://lastborntalks.github.io/Lastborn-Creative/)
 
 ## About
 
