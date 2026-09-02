@@ -25,19 +25,12 @@ services.forEach(([icon,title,desc])=>{
 
 // Portfolio data
 const projects = [
-  ["Sunday Service Highlight Reel","Church","A highlight edit moving through the full service: opening, hymns, preaching, prayer, and praise, cut together with transitions and one background music track. No live service audio, music carries the whole edit.","https://vm.tiktok.com/ZS4aPLuvd/"],
-  ["Lord's Chosen Youth Programme Promo","Short-form","A retention-first promo for a Lord's Chosen youth programme. The hook is built so viewers don't realise it's church content until they're already watching. Voiceover, background music, and sound effects throughout.","https://vm.tiktok.com/ZS453bXy7/"],
-  ["ODI'S CHOICE Toilet Cleaner Ad","Business","A story-driven product ad for ODI'S CHOICE. A woman finds her toilet dirty, orders the product, and the germs and dirt are shown being flushed away after use.","https://vm.tiktok.com/ZS453u8dc/"],
-  ["Community Outreach Highlight","Events","A highlight edit for a community outreach event, paired with a background voiceover that carries the story and keeps the mood consistent from start to finish.","https://vm.tiktok.com/ZS4aPdYtS/"],
-  ["Personal Storytelling Project","Storytelling","A self-directed narrative piece combining images and short clips with narration, built to show pacing, storytelling, and voiceover sync in a longer format.","https://vm.tiktok.com/ZS45wrw3f/"],
-  ["Church Rally Publicity Video","Church","Full video coverage and edit for a church rally publicity campaign, from filming through final cut, with clips paired to background music that fits the mood of each scene.","https://vm.tiktok.com/ZS453cdL4/"],
-  ["Motivational Short","Short-form","A single-character motivational piece, one person speaking directly to camera over a styled background, edited for pacing and delivery.","https://vm.tiktok.com/ZS45TFVga/"]
+  ["ODI'S CHOICE Toilet Cleaner Ad","Business","A story-driven product ad for ODI'S CHOICE. A woman finds her toilet dirty, orders the product, and the germs and dirt are shown being flushed away after use.","https://vm.tiktok.com/ZS453u8dc/"]
 ];
-const filters = document.getElementById('filters');
 const portGrid = document.getElementById('portGrid');
-function renderPortfolio(filter){
+function renderPortfolio(){
   portGrid.innerHTML = '';
-  projects.filter(p => filter==='All' || p[1]===filter).forEach(([title,catLabel,desc,link])=>{
+  projects.forEach(([title,catLabel,desc,link])=>{
     const linkHtml = link
       ? `<a href="${link}" target="_blank" rel="noopener" class="port-link">Watch Project</a>`
       : `<span class="port-link" style="opacity:.4; cursor:default;">Video coming soon</span>`;
@@ -54,14 +47,7 @@ function renderPortfolio(filter){
   });
   observeReveals();
 }
-filters.addEventListener('click', e=>{
-  if(e.target.classList.contains('filter-btn')){
-    filters.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
-    e.target.classList.add('active');
-    renderPortfolio(e.target.dataset.filter);
-  }
-});
-renderPortfolio('All');
+renderPortfolio();
 
 // Contact form sends straight to WhatsApp, no backend needed
 const contactForm = document.getElementById('contactForm');
