@@ -123,16 +123,7 @@
   .svc-card p{font-size:14.5px; color:var(--gray);}
 
   /* Portfolio */
-  .filters{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:36px;}
-  .filter-btn{
-    font-family:'IBM Plex Mono',monospace; font-size:12.5px; letter-spacing:.03em;
-    padding:9px 18px; border-radius:20px; border:1px solid var(--line); background:transparent; cursor:pointer;
-    color:var(--gray); transition:all .2s ease;
-  }
-  .filter-btn.active, .filter-btn:hover{background:var(--charcoal); color:#fff; border-color:var(--charcoal);}
-  .port-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
-  @media (max-width:900px){ .port-grid{grid-template-columns:repeat(2,1fr);} }
-  @media (max-width:620px){ .port-grid{grid-template-columns:1fr;} }
+  .port-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 360px)); gap:24px; justify-content:center;}
   .port-card{background:var(--white); border:1px solid var(--line); border-radius:8px; overflow:hidden; transition:transform .25s ease, box-shadow .25s ease;}
   .port-card:hover{transform:translateY(-5px); box-shadow:0 20px 40px -18px rgba(34,34,34,.2);}
   .port-thumb{
