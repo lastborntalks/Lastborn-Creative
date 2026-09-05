@@ -8,15 +8,8 @@ navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => na
 
 // Services data
 const services = [
-  ["▶","YouTube Video Editing","Professional long-form editing with smooth pacing, clean transitions, engaging storytelling, and audience retention in mind."],
-  ["▣","Short-form Content","Editing for TikTok, Instagram Reels, Facebook Reels, and YouTube Shorts, built to maximize engagement and retention."],
-  ["✚","Church Event Videos","Professional editing for crusades, conventions, conferences, worship services, youth programs, and church events."],
-  ["★","Event Highlight Videos","Beautiful highlight edits for birthdays, conferences, seminars, community events, and special occasions."],
-  ["◎","Promotional Videos","Professional promotional edits for businesses, products, services, and social media marketing."],
-  ["▲","Business Advertisement Videos","Attention-grabbing advertisement videos designed for social media campaigns and online promotions."],
-  ["▦","Corporate Video Editing","Clean and professional edits for organizations, interviews, presentations, and internal communications."],
-  ["Ⓒ","Subtitles & Captions","Professional subtitles with clean typography and modern animation styles to improve accessibility and engagement."],
-  ["◐","Color & Audio Enhancement","Brightness, contrast, and white balance correction, plus noise reduction and audio balancing for a polished finish."]
+  ["▲","Business & Product Ad Videos","Commercials built around a hook, a story, and a clear payoff, turning a product or service into something worth stopping for."],
+  ["▣","Short-Form Content For Growth","Reels, TikTok, and Shorts edited for retention, built to grow the account behind them, and adaptable to any niche or brand voice."]
 ];
 const svcGrid = document.getElementById('svcGrid');
 services.forEach(([icon,title,desc])=>{
@@ -25,7 +18,9 @@ services.forEach(([icon,title,desc])=>{
 
 // Portfolio data
 const projects = [
-  ["ODI'S CHOICE Toilet Cleaner Ad","Business","A story-driven product ad for ODI'S CHOICE. A woman finds her toilet dirty, orders the product, and the germs and dirt are shown being flushed away after use.","https://vm.tiktok.com/ZS453u8dc/"]
+  ["GOLI Product Ad","Business & Product Ads","A product ad made for GOLI, built around a clear hook and a fast, benefit-first pitch for the product.","https://vm.tiktok.com/ZSVoGkkEK/"],
+  ["ODI'S CHOICE Toilet Cleaner Ad","Business & Product Ads","A story-driven product ad for ODI'S CHOICE. A woman finds her toilet dirty, orders the product, and the germs and dirt are shown being flushed away after use.","https://vm.tiktok.com/ZSVoGmfYU/"],
+  ["Short-Form Content, Horror Niche","Short-Form Content","A short-form piece built for the horror niche, showing how the same retention-focused editing adapts to a client's specific niche or brand voice.","https://vm.tiktok.com/ZSVoGnEHj/"]
 ];
 const portGrid = document.getElementById('portGrid');
 function renderPortfolio(){
@@ -97,8 +92,7 @@ const faqs = [
   ["How do I send my footage?","Footage can be shared via Google Drive, WeTransfer, or another cloud link. Details are confirmed once we start your project."],
   ["How many revisions are included?","Every project includes a reasonable number of revision rounds so the final video matches your vision."],
   ["What video formats do you accept?","Most common formats are accepted, including MP4, MOV, and footage straight from phone cameras."],
-  ["Can you edit YouTube videos?","Yes. Long-form YouTube editing, including pacing, captions, and retention-focused cuts, is a core service."],
-  ["Can you edit church programs?","Yes. From full-length event coverage to short highlight edits for crusades, conventions, and worship services."],
+  ["Can you edit for any niche or industry?","Yes. Short-form and product ad editing adapts to any niche or brand voice, from e-commerce products to personal brands and creator accounts."],
   ["Do you work with international clients?","Yes. All communication and file transfer happens online, so location isn't a barrier."],
   ["How do payments work?","Payment terms are confirmed before work begins, typically with a deposit to start and balance on delivery."]
 ];
