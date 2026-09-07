@@ -1,3 +1,8 @@
+// Register GSAP plugins (files loaded via script tags in index.html)
+// Note: EasePack self-registers its eases (SlowMo, RoughEase, ExpoScaleEase) on load,
+// it is not passed to registerPlugin because it is not a plugin object.
+gsap.registerPlugin(ScrollTrigger, Observer, SplitText, MorphSVGPlugin, TextPlugin, ScrollToPlugin, Flip);
+
 document.getElementById('year').textContent = new Date().getFullYear();
 
 // Mobile menu
