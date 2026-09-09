@@ -51,7 +51,8 @@ services.forEach(([icon,title,desc])=>{
 const projects = [
   { title:"ODI'S CHOICE Toilet Cleaner Ad", cat:"Business & Product Ads", desc:"A story-driven product ad. A woman finds her toilet dirty, orders the product, and the germs and dirt are shown being flushed away after use.", link:"https://vm.tiktok.com/ZSVoGmfYU/", featured:true },
   { title:"GOLI Product Ad", cat:"Business & Product Ads", desc:"A product ad built around a clear hook and a fast, benefit-first pitch.", link:"https://vm.tiktok.com/ZSVoGkkEK/", featured:false },
-  { title:"Short-Form, Storytelling & Horror", cat:"Short-Form / Storytelling / Horror", desc:"A short-form piece in the horror niche, doubling as a storytelling sample. Adaptable to any client niche.", link:"https://vm.tiktok.com/ZSVoGnEHj/", featured:false }
+  { title:"Short-Form Storytelling", cat:"Short-Form / Storytelling", desc:"A short-form storytelling piece in the horror niche, showing how the same approach adapts to any niche or brand voice.", link:"https://vm.tiktok.com/ZSVoGnEHj/", featured:false },
+  { title:"Coca-Cola Concept Ad", cat:"Business & Product Ads", desc:"A multi-scene concept ad following Coca-Cola across four countries, AI-assisted clip generation with the final edit, transitions, and pacing done by hand.", link:"https://www.facebook.com/reel/2613210785748929/?app=fbl", featured:false }
 ];
 const bentoGrid = document.getElementById('bentoGrid');
 projects.forEach(p=>{
