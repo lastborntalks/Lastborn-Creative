@@ -1,7 +1,5 @@
-// Register GSAP plugins (files loaded via script tags in index.html)
-// Note: EasePack self-registers its eases (SlowMo, RoughEase, ExpoScaleEase) on load,
-// it is not passed to registerPlugin because it is not a plugin object.
-gsap.registerPlugin(ScrollTrigger, Observer, SplitText, MorphSVGPlugin, TextPlugin, ScrollToPlugin, Flip);
+// Register GSAP plugins actually used in this build (see GSAP audit: EasePack, MorphSVG, TextPlugin, Flip removed as unused)
+gsap.registerPlugin(ScrollTrigger, Observer, SplitText, ScrollToPlugin);
 
 document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -10,6 +8,33 @@ const menuToggle = document.getElementById('menuToggle');
 const navLinks = document.getElementById('navLinks');
 menuToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
 navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+// Smooth nav scroll via ScrollToPlugin
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+  link.addEventListener('click', (e) => {
+    const target = document.querySelector(link.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      gsap.to(window, { duration: 0.9, scrollTo: { y: target, offsetY: 70 }, ease: 'power2.inOut' });
+    }
+  });
+});
+
+// Hero headline entrance: one controlled SplitText reveal, word by word
+const heroLines = document.querySelectorAll('.hero-display .line1, .hero-display .line2');
+const splitLines = [];
+heroLines.forEach(line => {
+  const split = new SplitText(line, { type: 'words' });
+  splitLines.push(split);
+  gsap.set(split.words, { opacity: 0, y: '100%' });
+});
+gsap.timeline({ delay: 0.15 })
+  .to(splitLines[0].words, { opacity: 1, y: '0%', duration: 0.8, ease: 'expo.out', stagger: 0.06 })
+  .to(splitLines[1].words, { opacity: 1, y: '0%', duration: 0.8, ease: 'expo.out', stagger: 0.06 }, '-=0.55')
+  .to('.hero-portrait', { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' }, '-=0.6')
+  .to('.hero-sub, .hero-actions', { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out', stagger: 0.1 }, '-=0.5');
+gsap.set('.hero-portrait', { opacity: 0, y: 24 });
+gsap.set('.hero-sub, .hero-actions', { opacity: 0, y: 16 });
 
 // Services data
 const services = [
@@ -21,61 +46,25 @@ services.forEach(([icon,title,desc])=>{
   svcGrid.innerHTML += `<div class="svc-card reveal"><div class="svc-icon">${icon}</div><h3>${title}</h3><p>${desc}</p></div>`;
 });
 
-// Portfolio data
+// Work bento data: real projects only. The horror-niche project doubles as the Storytelling
+// and Horror category, per the actual footage, not fabricated separate projects.
 const projects = [
-  ["GOLI Product Ad","Business & Product Ads","A product ad made for GOLI, built around a clear hook and a fast, benefit-first pitch for the product.","https://vm.tiktok.com/ZSVoGkkEK/"],
-  ["ODI'S CHOICE Toilet Cleaner Ad","Business & Product Ads","A story-driven product ad for ODI'S CHOICE. A woman finds her toilet dirty, orders the product, and the germs and dirt are shown being flushed away after use.","https://vm.tiktok.com/ZSVoGmfYU/"],
-  ["Short-Form Content, Horror Niche","Short-Form Content","A short-form piece built for the horror niche, showing how the same retention-focused editing adapts to a client's specific niche or brand voice.","https://vm.tiktok.com/ZSVoGnEHj/"]
+  { title:"ODI'S CHOICE Toilet Cleaner Ad", cat:"Business & Product Ads", desc:"A story-driven product ad. A woman finds her toilet dirty, orders the product, and the germs and dirt are shown being flushed away after use.", link:"https://vm.tiktok.com/ZSVoGmfYU/", featured:true },
+  { title:"GOLI Product Ad", cat:"Business & Product Ads", desc:"A product ad built around a clear hook and a fast, benefit-first pitch.", link:"https://vm.tiktok.com/ZSVoGkkEK/", featured:false },
+  { title:"Short-Form, Storytelling & Horror", cat:"Short-Form / Storytelling / Horror", desc:"A short-form piece in the horror niche, doubling as a storytelling sample. Adaptable to any client niche.", link:"https://vm.tiktok.com/ZSVoGnEHj/", featured:false }
 ];
-const portGrid = document.getElementById('portGrid');
-function renderPortfolio(){
-  portGrid.innerHTML = '';
-  projects.forEach(([title,catLabel,desc,link])=>{
-    const linkHtml = link
-      ? `<a href="${link}" target="_blank" rel="noopener" class="port-link">Watch Project</a>`
-      : `<span class="port-link" style="opacity:.4; cursor:default;">Video coming soon</span>`;
-    portGrid.innerHTML += `
-      <div class="port-card reveal">
-        <div class="port-thumb"></div>
-        <div class="port-body">
-          <span class="port-cat">${catLabel}</span>
-          <h3>${title}</h3>
-          <p>${desc}</p>
-          ${linkHtml}
-        </div>
-      </div>`;
-  });
-  observeReveals();
-}
-renderPortfolio();
-
-// Contact form sends straight to WhatsApp, no backend needed
-const contactForm = document.getElementById('contactForm');
-contactForm.addEventListener('submit', e=>{
-  e.preventDefault();
-  const name = document.getElementById('cf-name').value;
-  const phone = document.getElementById('cf-phone').value;
-  const type = document.getElementById('cf-type').value;
-  const message = document.getElementById('cf-message').value;
-  let text = `Hi Lastborn Creative, my name is ${name}.\nMy number: ${phone}\nProject type: ${type}`;
-  if(message.trim()) text += `\n\nDetails: ${message}`;
-  window.open(`https://wa.me/2349132449484?text=${encodeURIComponent(text)}`, '_blank');
-});
-
-// Why choose grid
-const why = [
-  ["Professional Quality","Every edit is finished to a standard that holds up against agency-level work."],
-  ["Creative Storytelling","Footage is shaped around a narrative, not just trimmed and stitched."],
-  ["Attention to Detail","Pacing, sound, and transitions are treated as seriously as the visuals."],
-  ["Reliable Communication","You'll always know where your project stands. No radio silence."],
-  ["Fast Turnaround","Efficient workflow means your video is back in your hands quickly."],
-  ["Affordable Solutions","Quality editing that respects creator and small-business budgets."],
-  ["Client Satisfaction","Revisions are built into the process, not treated as a hassle."],
-  ["Passion for Excellence","This isn't just a service. It's a craft I take seriously."]
-];
-const whyGrid = document.getElementById('whyGrid');
-why.forEach(([t,d],i)=>{
-  whyGrid.innerHTML += `<div class="why-item reveal"><span class="num">0${i+1}</span><h3>${t}</h3><p>${d}</p></div>`;
+const bentoGrid = document.getElementById('bentoGrid');
+projects.forEach(p=>{
+  bentoGrid.innerHTML += `
+    <a href="${p.link}" target="_blank" rel="noopener" class="tile reveal${p.featured ? ' featured' : ''}">
+      <div class="tile-bg"></div>
+      <div class="tile-body">
+        <span class="tile-cat">${p.cat}</span>
+        <h3>${p.title}</h3>
+        <p>${p.desc}</p>
+        <span class="tile-link">Watch Project</span>
+      </div>
+    </a>`;
 });
 
 // Process
@@ -91,40 +80,13 @@ steps.forEach(([num,t,d])=>{
   processList.innerHTML += `<div class="proc-row reveal"><span class="tc">${num}</span><div><h3>${t}</h3><p>${d}</p></div></div>`;
 });
 
-// FAQ
-const faqs = [
-  ["How long does editing take?","Turnaround depends on footage length and complexity, but most projects are completed within a few days to about a week. Rush timelines can be discussed."],
-  ["How do I send my footage?","Footage can be shared via Google Drive, WeTransfer, or another cloud link. Details are confirmed once we start your project."],
-  ["How many revisions are included?","Every project includes a reasonable number of revision rounds so the final video matches your vision."],
-  ["What video formats do you accept?","Most common formats are accepted, including MP4, MOV, and footage straight from phone cameras."],
-  ["Can you edit for any niche or industry?","Yes. Short-form and product ad editing adapts to any niche or brand voice, from e-commerce products to personal brands and creator accounts."],
-  ["Do you work with international clients?","Yes. All communication and file transfer happens online, so location isn't a barrier."],
-  ["How do payments work?","Payment terms are confirmed before work begins, typically with a deposit to start and balance on delivery."]
-];
-const faqList = document.getElementById('faqList');
-faqs.forEach(([q,a])=>{
-  faqList.innerHTML += `
-    <div class="faq-item">
-      <button class="faq-q"><span>${q}</span><span class="plus">+</span></button>
-      <div class="faq-a"><p>${a}</p></div>
-    </div>`;
-});
-faqList.addEventListener('click', e=>{
-  const btn = e.target.closest('.faq-q');
-  if(!btn) return;
-  const item = btn.parentElement;
-  const answer = item.querySelector('.faq-a');
-  const wasOpen = item.classList.contains('open');
-  faqList.querySelectorAll('.faq-item').forEach(i=>{ i.classList.remove('open'); i.querySelector('.faq-a').style.maxHeight = null; });
-  if(!wasOpen){ item.classList.add('open'); answer.style.maxHeight = answer.scrollHeight+'px'; }
-});
-
-// Scroll reveal
-function observeReveals(){
-  const els = document.querySelectorAll('.reveal:not(.in)');
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
-  }, {threshold:0.12});
-  els.forEach(el=>io.observe(el));
+// Scroll reveal via ScrollTrigger, staggered per section instead of per element
+function initReveals(){
+  document.querySelectorAll('section').forEach(section => {
+    const items = section.querySelectorAll('.reveal');
+    if (!items.length) return;
+    gsap.timeline({ scrollTrigger: { trigger: section, start: 'top 78%' } })
+      .to(items, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out', stagger: 0.12 });
+  });
 }
-observeReveals();
+initReveals();
