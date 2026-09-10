@@ -8,12 +8,12 @@
 <meta property="og:title" content="Lastborn Creative">
 <meta property="og:description" content="Video editor and visual storyteller. Ads, short-form content, storytelling for any niche, documentary.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg:#F4F5F7;
     --surface:#FFFFFF;
-    --ink:#16171A;
+    --ink:#0D0D12;
     --ink-dim:#5B5E66;
     --ink-dimmer:#9A9DA5;
     --line: rgba(22,23,26,.1);
@@ -42,7 +42,7 @@
   a{color:inherit; text-decoration:none;}
   ul{list-style:none;}
   .wrap{max-width:1180px; margin:0 auto; padding:0 32px;}
-  h1,h2,h3,h4{font-family:'Fraunces',serif; font-weight:600; color:var(--ink); line-height:1.08; letter-spacing:-0.01em;}
+  h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif; font-weight:700; color:var(--ink); line-height:1.08; letter-spacing:-0.01em;}
   .eyebrow{
     font-family:'IBM Plex Mono',monospace;
     font-weight:700;
@@ -57,15 +57,32 @@
   }
   .eyebrow::before{content:"▸"; font-size:12px;}
 
-  /* Preloader */
+  /* Preloader: gradient shifts through the site's main colors, crimson dominant */
   #preloader{
-    position:fixed; inset:0; z-index:999; background:var(--bg);
-    display:flex; align-items:center; justify-content:center; flex-direction:column; gap:18px;
+    position:fixed; inset:0; z-index:999;
+    background:linear-gradient(120deg, #0D0D12 0%, #C62828 22%, #E14B3D 38%, #C62828 54%, #0D0D12 72%, #F4F5F7 88%, #0D0D12 100%);
+    background-size:300% 300%;
+    animation:preloaderShift 4s ease-in-out infinite;
+    display:flex; align-items:center; justify-content:center; flex-direction:column; gap:22px;
   }
-  .spinner{width:52px; height:52px; border-radius:50%; border:3px solid var(--line); border-top-color:var(--crimson); animation:spin .9s linear infinite;}
+  @keyframes preloaderShift{ 0%{background-position:0% 50%;} 50%{background-position:100% 50%;} 100%{background-position:0% 50%;} }
+  .spinner{width:44px; height:44px; border-radius:50%; border:3px solid rgba(255,255,255,.25); border-top-color:#fff; animation:spin .9s linear infinite;}
   @keyframes spin{ to{transform:rotate(360deg);} }
-  .preloader-word{font-family:'Anton',sans-serif; text-transform:uppercase; letter-spacing:.04em; font-size:15px; color:var(--ink-dim);}
-  @media (prefers-reduced-motion: reduce){ .spinner{animation:none; border-top-color:var(--crimson);} }
+  .preloader-word{
+    font-family:'Anton',sans-serif; text-transform:uppercase; letter-spacing:.03em;
+    font-size:clamp(26px,6vw,44px); color:#fff; text-shadow:0 4px 18px rgba(0,0,0,.35);
+    opacity:0; transform:scale(.7) translateY(14px);
+    animation:wordEntrance .6s ease-out .1s forwards;
+  }
+  .preloader-word .pw-inner{display:inline-block; animation:wordTilt 3s ease-in-out .8s infinite;}
+  @keyframes wordEntrance{ to{opacity:1; transform:scale(1) translateY(0);} }
+  @keyframes wordTilt{ 0%,100%{transform:rotate(0deg);} 50%{transform:rotate(2.5deg);} }
+  @media (prefers-reduced-motion: reduce){
+    #preloader{animation:none; background:var(--ink);}
+    .spinner{animation-duration:1.4s;}
+    .preloader-word{animation-duration:.4s;}
+    .preloader-word .pw-inner{animation:none;}
+  }
 
   /* Page views (SPA-style switching) */
   .page-view{display:none;}
@@ -73,7 +90,9 @@
   .page-view:not(#page-home){position:relative; padding-top:56px;}
   .page-backdrop{
     position:absolute; top:-40px; right:-10%; z-index:0; pointer-events:none;
-    height:120%; width:auto; opacity:.05; filter:grayscale(1);
+    height:120%; width:auto; opacity:.11; filter:grayscale(1);
+    -webkit-mask-image:linear-gradient(to bottom, black 0%, black 55%, transparent 92%);
+    mask-image:linear-gradient(to bottom, black 0%, black 55%, transparent 92%);
   }
   .page-view:not(#page-home) > .wrap, .page-view:not(#page-home) .contact-section{position:relative; z-index:1;}
 
@@ -91,9 +110,9 @@
     border:1.5px solid transparent;
   }
   .btn-primary{background:var(--crimson); color:#fff;}
-  .btn-primary:hover{background:var(--crimson-dark); transform:translateY(-2px); box-shadow:0 10px 24px rgba(198,40,40,.25);}
+  .btn-primary:hover{background:var(--crimson-dark); transform:translateY(-2px) scale(1.03); box-shadow:0 10px 24px rgba(198,40,40,.25);}
   .btn-ghost{background:transparent; border-color:var(--ink); color:var(--ink);}
-  .btn-ghost:hover{border-color:var(--crimson); color:var(--crimson); transform:translateY(-2px);}
+  .btn-ghost:hover{border-color:var(--crimson); color:var(--crimson); transform:translateY(-2px) scale(1.03);}
 
   /* Nav */
   header{
@@ -102,7 +121,7 @@
     border-bottom:1px solid var(--line);
   }
   nav{display:flex; align-items:center; justify-content:space-between; padding:20px 32px; max-width:1180px; margin:0 auto;}
-  .logo{font-family:'Fraunces',serif; font-weight:700; font-size:19px; letter-spacing:-0.01em; display:flex; flex-direction:column; line-height:0.94; gap:2px; color:var(--ink); cursor:pointer; background:none; border:none;}
+  .logo{font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:19px; letter-spacing:-0.01em; display:flex; flex-direction:column; line-height:0.94; gap:2px; color:var(--ink); cursor:pointer; background:none; border:none;}
   .logo .sub{font-family:'IBM Plex Mono',monospace; font-weight:700; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--crimson);}
   .nav-links{display:flex; gap:34px; align-items:center;}
   .nav-links button{font-size:14.5px; font-weight:500; color:var(--ink); position:relative; padding:4px 0; background:none; border:none; cursor:pointer; font-family:inherit;}
@@ -129,6 +148,11 @@
 
   /* Hero */
   .hero{position:relative; padding:64px 0 0; overflow:hidden;}
+  .hero::before{
+    content:""; position:absolute; top:-10%; right:-10%; width:60%; padding-bottom:60%;
+    background:radial-gradient(circle, rgba(198,40,40,.14) 0%, rgba(198,40,40,.06) 45%, transparent 72%);
+    filter:blur(40px); z-index:0; pointer-events:none; border-radius:50%;
+  }
   .hero-inner{position:relative; max-width:1180px; margin:0 auto; padding:0 32px;}
   .hero-eyebrow{font-family:'IBM Plex Mono',monospace; font-weight:700; font-size:13px; letter-spacing:.15em; text-transform:uppercase; color:var(--crimson); margin-bottom:18px;}
   .hero-display{
@@ -156,7 +180,9 @@
     position:relative; left:50%; right:50%; width:100vw; margin-left:-50vw; margin-right:-50vw;
     margin-top:40px;
   }
-  .marquee-track{display:flex; width:max-content; animation:marquee 26s linear infinite;}
+  .marquee-track{display:flex; width:max-content; animation:marquee 36s linear infinite;}
+  .marquee-inline:hover .marquee-track{animation-play-state:paused;}
+  .marquee-inline:hover .marquee-track span{animation-play-state:paused;}
   .marquee-track span{
     font-family:'Anton',sans-serif; font-size:22px; text-transform:uppercase; letter-spacing:.02em;
     padding:0 28px; display:flex; align-items:center; gap:28px; white-space:nowrap;
@@ -203,8 +229,9 @@
   .tile{
     position:relative; border-radius:10px; overflow:hidden; background:var(--ink);
     border:1px solid var(--line); display:flex; align-items:flex-end;
+    transition:transform .3s ease, box-shadow .3s ease;
   }
-  .tile-bg{position:absolute; inset:0; background:linear-gradient(150deg,#2A2A2E,#0E0E10); transition:transform .4s ease;}
+  .tile-bg{position:absolute; inset:0; background:linear-gradient(150deg,#24242B,var(--ink)); transition:transform .4s ease;}
   .tile::after{content:""; position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,.75) 0%, rgba(0,0,0,.1) 55%, transparent 80%);}
   .tile-body{position:relative; z-index:2; padding:22px; color:#fff; width:100%;}
   .tile-cat{font-family:'IBM Plex Mono',monospace; font-weight:700; font-size:11px; color:var(--crimson-hi); text-transform:uppercase; letter-spacing:.06em;}
@@ -212,6 +239,7 @@
   .tile-body p{color:rgba(255,255,255,.7); font-size:13.5px; margin-bottom:10px;}
   .tile-link{font-size:13px; font-weight:600; color:#fff; display:inline-flex; align-items:center; gap:6px;}
   .tile-link::after{content:"→"; transition:transform .2s ease;}
+  .tile:hover{transform:translateY(-4px) scale(1.015); box-shadow:0 18px 34px -16px rgba(13,13,18,.35);}
   .tile:hover .tile-link::after{transform:translateX(4px);}
   .tile:hover .tile-bg{transform:scale(1.04);}
 
@@ -221,7 +249,7 @@
     background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:30px 26px;
     transition:transform .2s ease, box-shadow .2s ease;
   }
-  .svc-card:hover{transform:translateY(-3px); box-shadow:0 16px 30px -16px rgba(22,23,26,.2);}
+  .svc-card:hover{transform:translateY(-3px) scale(1.015); box-shadow:0 16px 30px -16px rgba(13,13,18,.25);}
   .svc-icon{width:42px; height:42px; border-radius:8px; background:var(--crimson); color:#fff; display:flex; align-items:center; justify-content:center; margin-bottom:18px; font-size:19px;}
   .svc-card h3{font-size:18px; margin-bottom:9px;}
   .svc-card p{font-size:14.5px; color:var(--ink-dim);}
@@ -260,8 +288,12 @@
 
   .reveal{opacity:0; transform:translateY(24px);}
 
+  /* Reduced motion: shorter and calmer, not fully removed */
   @media (prefers-reduced-motion: reduce){
-    *{animation:none !important; transition:none !important;}
+    *{animation-duration:.4s !important; transition-duration:.2s !important; scroll-behavior:auto !important;}
+    .marquee-track{animation-duration:90s !important;}
+    .marquee-track span{animation:none !important; color:var(--ink) !important;}
+    .btn-primary:hover, .btn-ghost:hover, .tile:hover, .svc-card:hover{transform:none !important;}
   }
 </style>
 </head>
@@ -269,7 +301,7 @@
 
 <div id="preloader">
   <div class="spinner"></div>
-  <div class="preloader-word">Lastborn Creative</div>
+  <div class="preloader-word"><span class="pw-inner">Lastborn Creative</span></div>
 </div>
 
 <header>
@@ -310,7 +342,7 @@
       </div>
       <div class="page-icons reveal">
         <button class="page-icon" onclick="showPage('about')">
-          <svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="21" stroke="#16171A" stroke-width="2.5"/><text x="24" y="32" font-family="Fraunces, serif" font-size="24" font-weight="700" text-anchor="middle" fill="#C62828">?</text></svg>
+          <svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="21" stroke="#16171A" stroke-width="2.5"/><text x="24" y="32" font-family="Space Grotesk, sans-serif" font-size="24" font-weight="700" text-anchor="middle" fill="#C62828">?</text></svg>
           <span>About</span>
         </button>
         <button class="page-icon" onclick="showPage('work')">
@@ -460,12 +492,12 @@ gsap.registerPlugin(ScrollTrigger, Observer, SplitText, ScrollToPlugin);
 
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// 5-second preloader
+// 3.1-second preloader
 window.addEventListener('load', () => {
   setTimeout(() => {
     const pre = document.getElementById('preloader');
     gsap.to(pre, { opacity: 0, duration: 0.5, onComplete: () => pre.style.display = 'none' });
-  }, 5000);
+  }, 3100);
 });
 
 // Mobile menu
@@ -500,7 +532,7 @@ if (heroLines.length) {
   });
   gsap.set('.hero-portrait', { opacity: 0, y: 24 });
   gsap.set('.hero-sub, .hero-actions, .page-icons', { opacity: 0, y: 16 });
-  gsap.timeline({ delay: 5.2 })
+  gsap.timeline({ delay: 3.4 })
     .to(splitLines[0].words, { opacity: 1, y: '0%', duration: 0.8, ease: 'expo.out', stagger: 0.06 })
     .to(splitLines[1].words, { opacity: 1, y: '0%', duration: 0.8, ease: 'expo.out', stagger: 0.06 }, '-=0.55')
     .to('.hero-portrait', { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' }, '-=0.6')
