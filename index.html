@@ -8,7 +8,7 @@
 <meta property="og:title" content="Lastborn Creative">
 <meta property="og:description" content="Video editor and visual storyteller. Ads, short-form content, storytelling for any niche, documentary.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@700&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg:#FFFCF4;
@@ -17,10 +17,10 @@
     --ink-dim:#5B5E66;
     --ink-dimmer:#9A9DA5;
     --line: rgba(22,23,26,.1);
-    --crimson:#FF6115;
-    --crimson-dark:#CC4D11;
-    --crimson-hi:#FF8547;
-    --silver:#E8B685;
+    --crimson:#2B3BFF;
+    --crimson-dark:#1C28B0;
+    --crimson-hi:#5C68FF;
+    --accent-text:#FFFFFF;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth; max-width:100%; overflow-x:hidden;}
@@ -34,7 +34,7 @@
       linear-gradient(165deg, #FFFDF4 0%, #FAF4E4 45%, #F3E9D4 100%);
     background-attachment:fixed;
     color:var(--ink);
-    font-family:'Inter',sans-serif;
+    font-family:'Work Sans',sans-serif;
     line-height:1.6;
     -webkit-font-smoothing:antialiased;
   }
@@ -42,7 +42,7 @@
   a{color:inherit; text-decoration:none;}
   ul{list-style:none;}
   .wrap{max-width:1180px; margin:0 auto; padding:0 32px;}
-  h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif; font-weight:700; color:var(--ink); line-height:1.08; letter-spacing:-0.01em;}
+  h1,h2,h3,h4{font-family:'Archivo',sans-serif; font-weight:700; color:var(--ink); line-height:1.08; letter-spacing:-0.01em;}
   .eyebrow{
     font-family:'IBM Plex Mono',monospace;
     font-weight:700;
@@ -55,7 +55,7 @@
     margin-bottom:16px;
     text-transform:uppercase;
   }
-  .eyebrow::before{content:"▸"; font-size:12px;}
+  .eyebrow::before{content:""; width:0; height:0; border-top:4px solid transparent; border-bottom:4px solid transparent; border-left:6px solid var(--crimson); display:inline-block;}
 
   /* Preloader: gradient shifts through the site's main colors, crimson dominant */
   #preloader{
@@ -88,12 +88,6 @@
   .page-view{display:none;}
   .page-view.active{display:block;}
   .page-view:not(#page-home){position:relative; padding-top:26px;}
-  .page-backdrop{
-    position:absolute; top:-40px; right:-10%; z-index:0; pointer-events:none;
-    height:120%; width:auto; opacity:.11; filter:grayscale(1);
-    -webkit-mask-image:linear-gradient(to bottom, black 0%, black 55%, transparent 92%);
-    mask-image:linear-gradient(to bottom, black 0%, black 55%, transparent 92%);
-  }
   .page-view:not(#page-home) > .wrap, .page-view:not(#page-home) .contact-section{position:relative; z-index:1;}
   .page-view:not(#page-home) .section-head{margin-bottom:24px;}
 
@@ -101,7 +95,7 @@
   #backBtn{
     display:none; position:fixed; top:84px; left:20px; z-index:150;
     width:42px; height:42px; border-radius:50%; align-items:center; justify-content:center;
-    background:rgba(13,13,18,.55); backdrop-filter:blur(6px); border:1px solid rgba(255,255,255,.15);
+    background:rgba(13,13,18,.85); border:1px solid rgba(255,255,255,.15);
     color:#fff; cursor:pointer; transition:background .2s ease, transform .15s ease;
   }
   #backBtn.show{display:flex;}
@@ -139,11 +133,11 @@
   /* Nav */
   header{
     position:sticky; top:0; z-index:200;
-    background:rgba(244,245,247,.86); backdrop-filter:blur(10px);
+    background:var(--bg);
     border-bottom:1px solid var(--line);
   }
   nav{display:flex; align-items:center; justify-content:space-between; padding:20px 32px; max-width:1180px; margin:0 auto;}
-  .logo{font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:19px; letter-spacing:-0.01em; display:flex; flex-direction:column; line-height:0.94; gap:2px; color:var(--ink); cursor:pointer; background:none; border:none;}
+  .logo{font-family:'Archivo',sans-serif; font-weight:700; font-size:19px; letter-spacing:-0.01em; display:flex; flex-direction:column; line-height:0.94; gap:2px; color:var(--ink); cursor:pointer; background:none; border:none;}
   .logo .sub{font-family:'IBM Plex Mono',monospace; font-weight:700; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--crimson);}
   .nav-links{display:flex; gap:34px; align-items:center;}
   .nav-links button{font-size:14.5px; font-weight:500; color:var(--ink); position:relative; padding:4px 0; background:none; border:none; cursor:pointer; font-family:inherit;}
@@ -170,11 +164,6 @@
 
   /* Hero */
   .hero{position:relative; padding:64px 0 0; overflow:hidden;}
-  .hero::before{
-    content:""; position:absolute; top:-10%; right:-10%; width:60%; padding-bottom:60%;
-    background:radial-gradient(circle, rgba(255,97,21,.14) 0%, rgba(255,97,21,.06) 45%, transparent 72%);
-    filter:blur(40px); z-index:0; pointer-events:none; border-radius:50%;
-  }
   .hero-inner{position:relative; max-width:1180px; margin:0 auto; padding:0 32px;}
   .hero-eyebrow{font-family:'IBM Plex Mono',monospace; font-weight:700; font-size:13px; letter-spacing:.15em; text-transform:uppercase; color:var(--crimson); margin-bottom:18px;}
   .hero-display{
@@ -197,26 +186,15 @@
   .hero-actions{display:flex; gap:16px; flex-wrap:wrap; position:relative; z-index:2; margin-top:34px;}
 
   /* Marquee, color-cycling through silver, crimson, white/ink */
-  .marquee{border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--surface); overflow:hidden; padding:22px 0;}
+  .marquee{border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--surface); overflow:hidden; padding:22px 0; text-align:center;}
   .marquee-inline{
     position:relative; left:50%; right:50%; width:100vw; margin-left:-50vw; margin-right:-50vw;
     margin-top:40px;
   }
-  .marquee-track{display:flex; width:max-content; animation:marquee 36s linear infinite;}
-  .marquee-inline:hover .marquee-track{animation-play-state:paused;}
-  .marquee-inline:hover .marquee-track span{animation-play-state:paused;}
-  .marquee-track span{
-    font-family:'Anton',sans-serif; font-size:22px; text-transform:uppercase; letter-spacing:.02em;
-    padding:0 28px; display:flex; align-items:center; gap:28px; white-space:nowrap;
-    animation:colorCycle 6s ease-in-out infinite;
+  .static-line-text{
+    font-family:'Anton',sans-serif; font-size:clamp(16px,3vw,22px); text-transform:uppercase; letter-spacing:.02em;
+    color:var(--ink);
   }
-  .marquee-track span:nth-child(2n){animation-delay:1s;}
-  .marquee-track span:nth-child(3n){animation-delay:2s;}
-  .marquee-track span:nth-child(4n){animation-delay:3s;}
-  .marquee-track span::after{content:"—"; color:var(--crimson);}
-  @keyframes marquee{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
-  @keyframes colorCycle{ 0%{color:var(--ink);} 33%{color:var(--crimson);} 66%{color:var(--silver);} 100%{color:var(--ink);} }
-  @media (prefers-reduced-motion: reduce){ .marquee-track{animation:none;} .marquee-track span{animation:none; color:var(--ink);} }
 
   /* Page-switch icon row (Home page only) */
   .page-icons{display:flex; gap:40px; flex-wrap:wrap; margin-top:44px; padding-bottom:56px;}
@@ -233,7 +211,7 @@
   .about-copy p{color:var(--ink-dim); font-size:16.5px; margin-bottom:18px; max-width:520px;}
   .principles{list-style:none; margin-top:28px; border-top:1px solid var(--line);}
   .principles li{display:flex; gap:20px; padding:20px 0; border-bottom:1px solid var(--line); align-items:baseline;}
-  .principles .num{font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--crimson); flex-shrink:0;}
+  .principles .num{display:none;}
   .principles p{color:var(--ink); font-size:16px; font-weight:500;}
 
   /* Bento work grid */
@@ -272,21 +250,20 @@
   .tile:hover .tile-link::after{transform:translateX(4px);}
   .tile:hover .tile-bg{transform:scale(1.04);}
 
-  /* Services */
-  .svc-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:20px;}
+  /* Services: simple list of rows, no cards */
+  .svc-grid{border-top:1px solid var(--line);}
   .svc-card{
-    background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:30px 26px;
-    transition:transform .2s ease, box-shadow .2s ease;
+    display:flex; flex-direction:column; gap:6px;
+    padding:24px 0; border-bottom:1px solid var(--line);
   }
-  .svc-card:hover{transform:translateY(-3px) scale(1.015); box-shadow:0 16px 30px -16px rgba(13,13,18,.25);}
-  .svc-icon{width:42px; height:42px; border-radius:8px; background:var(--crimson); color:#fff; display:flex; align-items:center; justify-content:center; margin-bottom:18px; font-size:19px;}
-  .svc-card h3{font-size:18px; margin-bottom:9px;}
+  .svc-icon{display:none;}
+  .svc-card h3{font-size:18px;}
   .svc-card p{font-size:14.5px; color:var(--ink-dim);}
 
   /* Process */
   .process-list{border-top:1px solid var(--line);}
-  .proc-row{display:grid; grid-template-columns:60px 1fr; gap:24px; padding:26px 0; border-bottom:1px solid var(--line); align-items:baseline;}
-  .proc-row .tc{font-family:'IBM Plex Mono',monospace; font-weight:700; font-size:13px; color:var(--crimson);}
+  .proc-row{display:grid; grid-template-columns:1fr; gap:24px; padding:26px 0; border-bottom:1px solid var(--line); align-items:baseline;}
+  .proc-row .tc{display:none;}
   .proc-row h3{font-size:18px; margin-bottom:6px;}
   .proc-row p{color:var(--ink-dim); font-size:14.5px; max-width:560px;}
 
@@ -367,11 +344,8 @@
       <div class="hero-stage">
         <img src="images/hero-portrait.webp" alt="Portrait of Lastborntalks, founder of Lastborn Creative" class="hero-portrait">
       </div>
-      <div class="marquee marquee-inline">
-        <div class="marquee-track">
-          <span>Edit With Intent</span><span>Story First</span><span>Cut Different</span><span>Ads</span><span>Short-Form</span><span>Storytelling</span><span>Lastborn Creative</span>
-          <span>Edit With Intent</span><span>Story First</span><span>Cut Different</span><span>Ads</span><span>Short-Form</span><span>Storytelling</span><span>Lastborn Creative</span>
-        </div>
+      <div class="marquee marquee-inline static-line">
+        <p class="static-line-text">Edit With Intent &middot; Story First &middot; Lastborn Creative</p>
       </div>
       <p class="hero-sub reveal">Ads, short-form content, storytelling for any niche, and documentary edits. I turn raw footage into videos worth watching.</p>
       <div class="hero-actions reveal">
@@ -416,7 +390,6 @@
 </div>
 
 <div id="page-about" class="page-view">
-  <img src="images/hero-portrait.webp" class="page-backdrop" alt="">
   <section id="about">
     <div class="wrap about-grid">
       <div>
@@ -427,10 +400,10 @@
         <p>Lastborn Creative is a video editing practice built around one idea: the edit is where a story actually gets made. Raw footage is only half the work, pacing, sound, and structure are the other half.</p>
         <p>My range spans product and business ads, short-form content built for retention, narrative storytelling, and documentary-style coverage, adapting the craft to whatever the footage and the client actually need. Talking-head editing is still a growing part of my practice, not yet a specialty.</p>
         <ul class="principles">
-          <li><span class="num">01</span><p>Story before effects</p></li>
-          <li><span class="num">02</span><p>Edit for attention</p></li>
-          <li><span class="num">03</span><p>Design with intention</p></li>
-          <li><span class="num">04</span><p>Every frame earns its place</p></li>
+          <li><p>Hook in the first two seconds.</p></li>
+          <li><p>Sound is half the edit.</p></li>
+          <li><p>Pacing decides if people stay.</p></li>
+          <li><p>Clear revisions, clear delivery.</p></li>
         </ul>
       </div>
     </div>
@@ -438,7 +411,6 @@
 </div>
 
 <div id="page-services" class="page-view">
-  <img src="images/hero-portrait.webp" class="page-backdrop" alt="">
   <section id="services">
     <div class="wrap">
       <div class="section-head">
@@ -451,7 +423,6 @@
 </div>
 
 <div id="page-process" class="page-view">
-  <img src="images/hero-portrait.webp" class="page-backdrop" alt="">
   <section id="process">
     <div class="wrap">
       <div class="section-head">
@@ -464,7 +435,6 @@
 </div>
 
 <div id="page-work" class="page-view">
-  <img src="images/hero-portrait.webp" class="page-backdrop" alt="">
   <section id="work" aria-label="Work">
     <div class="wrap">
       <div class="section-head">
@@ -610,6 +580,7 @@ if (svcGrid) {
 
 // Work data: real projects only, grouped into collections by category
 const projects = [
+  { title:"Artist Music Video", cat:"Music Videos", desc:"A music video created and edited for an artist, from concept to final cut.", link:"https://vm.tiktok.com/ZSbWwVPAx/", featured:true },
   { title:"Coca-Cola Concept Ad", cat:"Business & Product Ads", desc:"A multi-scene concept ad following Coca-Cola across four countries, AI-assisted clip generation with the final edit, transitions, and pacing done by hand.", link:"https://www.facebook.com/reel/2613210785748929/?app=fbl", featured:true },
   { title:"Perfume & Chai Product Ad", cat:"Business & Product Ads", desc:"A product ad made for Perfume & Chai, a UK-based business.", link:"https://www.facebook.com/share/v/1BrxpnkFv9/", featured:false },
   { title:"GOLI Product Ad", cat:"Business & Product Ads", desc:"A product ad built around a clear hook and a fast, benefit-first pitch.", link:"https://vm.tiktok.com/ZSVoGkkEK/", featured:false },
